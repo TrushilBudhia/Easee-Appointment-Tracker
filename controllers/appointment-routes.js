@@ -28,6 +28,7 @@ router.get('/daily-itinerary', withAuth, async (request, response) => {
     response.status(500).json(error);
   }
 });
+
 router.get('/view-appointments', withAuth, async (request, response) => {
   try {
     const dbAppointmentData = await Appointment.findAll({
@@ -44,6 +45,7 @@ router.get('/view-appointments', withAuth, async (request, response) => {
     response.status(500).json(error);
   }
 });
+
 router.get('/:id', async (request, response) => {
   try {
     const dbAppointmentData = await Appointment.findByPk(request.params.id, {

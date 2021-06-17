@@ -1,4 +1,13 @@
-<p>in appointment handler</p>
+{{!-- <p>in appointment handler</p>
 {{#each appointments as | appointment|}}
 {{> appointment-details}}
-{{/each}}
+{{/each}} --}}
+
+<section class="appointment-cards is-block mx-3">
+    <h3 class="has-text-grey-dark has-text-weight-semibold is-size-3 mx-3 my-5">Appointments:</h3>
+    <article class="columns is-12 card-columns">
+        {{#each appointments as | appointment|}}
+        {{> appointment-details}}
+        {{/each}}
+    </article>
+</section>
