@@ -247,23 +247,23 @@ document.querySelector(".dashboard").addEventListener("click", async (event) => 
 
 const addAppointmentFormHandler = async (event) => {
     event.preventDefault();
-    const appointmentForInput = document.getElementById("appointment-name-input");
+    const appointmentForInput = document.getElementById("appointment-for");
     const appointmentWithInput = document.getElementById("person-appointment-with");
     const addressInput = document.getElementById("appointment-location");
-    const notesInput = document.getElementById("notes");
+    const appointmentNotes = document.getElementById("appointment-notes");
 
     const appointmentDate = currentYear + ("0" + monthChosenNumber).slice(-2) + ("0" + dateChosen).slice(-2);
     const appointmentTime = hourChosen + minuteChosen;
-    const appointmentWhom = appointmentForInput.value;
+    const appointmentFor = appointmentForInput.value;
     const appointmentWith = appointmentWithInput.value;
-    const appointmentAddress = addressInput.value;
-    const notesValue = notesInput.value;
+    const appointmentLocation = addressInput.value;
+    const notesValue = appointmentNotes.value;
     // Posting the data to the api/appointments router when the submit button is successfully submitted
-    if (appointmentForInput && appointmentWhom && appointmentWithInput && appointmentWith && addressInput && appointmentAddress) {
+    if (appointmentForInput && appointmentFor && appointmentWithInput && appointmentWith && addressInput && appointmentLocation) {
         console.log("if statement entered");
         const response = await fetch('/api/appointments', {
             method: 'POST',
-            body: JSON.stringify({ appointmentDate, appointmentTime, appointmentWhom, appointmentWith, appointmentAddress, notesValue }),
+            body: JSON.stringify({ appointmentDate, appointmentTime, appointmentFor, appointmentWith, appointmentLocation, appointmentNotes }),
             headers: { 'Content-Type': 'application/json' },
         });
         // Invoke the successMessage function if the response is ok
@@ -277,13 +277,13 @@ const addAppointmentFormHandler = async (event) => {
         const errorMessage = document.querySelector(".error");
         numberOfElementsShown(errorMessage, 0);
         let errorMessageListItem;
-        if (!appointmentWhom) {
-            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>• Appointment For Whom</li>`: errorMessageListItem = `<li>• Appointment For Whom</li>`;
+        if (!appointmentFor) {
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>• Appointment For</li>`: errorMessageListItem = `<li>• Appointment For Whom</li>`;
         }
         if (!appointmentWith) {
             errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>• Appointment With</li>` : errorMessageListItem = `<li>• Appointment With</li>`;
         }
-        if (!appointmentAddress) {
+        if (!appointmentLocation) {
             errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>• Appointment Location</li>`: errorMessageListItem = `<li>• Appointment Location</li>`;
         }
 

@@ -151,6 +151,9 @@ img {
 }
 
 /* Appointment card section styling */
+a:hover {
+    text-decoration: none;
+}
 .columns {
   flex-wrap: wrap;
   justify-content: center;
@@ -200,8 +203,13 @@ img {
   /* background-color: #4043e2; */
 }
 
+.delete-btn {
+  height: 100%;
+}
+
 .delete-btn:hover {
   background-color: #ee2222;
+  height: 100%;
 }
 
 button {
