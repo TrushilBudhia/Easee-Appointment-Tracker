@@ -1,18 +1,21 @@
+{{!-- The edit appointment page template --}}
+<link rel="stylesheet" href="/flatpickr/flatpickr.css">  
+<link rel="stylesheet" href="/flatpickr/themes/light.css">  
 <section>
     <section class="success-message box is-block has-text-centered mx-3 notification is-success is-hidden">
-        <h4 class="mb-2">Appointment entry updated!</h4>
+        <h4 class="is-size-5 mb-2">Appointment entry updated!</h4>
         <button class="dashboard button is-link is-light my-2">Return to dashboard</button>
     </section>
-    <section class="appointment-date box is-block mx-3">
+    <section class="appointment-details box is-block mx-3">
         <h3 class="has-text-grey-dark is-size-3">Edit Appointment</h3>
         <form>
             <div class="is-size-5 my-4 field">
                 <label class="has-text-weight-semibold label" for="appointment-date">Appointment Date:</label>
-                <input type="text" class="input" id="appointment-date" name="appointment-date" placeholder="Appointment Date" value="{{appointment.appnt_date}}">
+                <input type="text" class="input" id="appointment-date" placeholder="Appointment Date" value="{{appointment.appnt_date}}" data-input>
             </div>
             <div class="is-size-5 my-4 field">
                 <label class="has-text-weight-semibold label" for="appointment-time">Appointment Time:</label>
-                <input type="text" class="input" id="appointment-time" name="appointment-time" placeholder="Appointment Time" value="{{appointment.appnt_time}}">
+                <input type="text" class="input" id="appointment-time" placeholder="Appointment Time" value="{{format_appointment_time appointment.appnt_time}}" data-input>
             </div>
             <div class="is-size-5 my-4 field">
                 <label class="has-text-weight-semibold label" for="appointment-for">Appointment For:</label>
@@ -54,6 +57,7 @@
         </form>
     </section>
 </section>
+<script src="/flatpickr/flatpickr.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script type="text/javascript"
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC856BBT5rwwkraEtK2Ki5obfAUgw1M2KQ&libraries=places&v=weekly"></script>

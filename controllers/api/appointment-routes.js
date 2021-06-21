@@ -56,7 +56,7 @@ router.put('/:id', withAuth, async (request, response) => {
             appnt_for_whom: request.body.appointmentFor,
             appnt_with_whom: request.body.appointmentWith,
             appnt_location: request.body.appointmentLocation,
-            appnt_note: request.body.notesValue,
+            appnt_note: request.body.appointmentNotes,
         },
         {
             where: {

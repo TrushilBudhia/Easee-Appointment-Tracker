@@ -1,5 +1,25 @@
+const body = document.querySelector("body");
+body.setAttribute("style", "display: block;");
+
+// Adding the flatpickr Date Picker to the appointment date input
+flatpickr("#appointment-date", {
+    altInput: true,
+    altFormat: "j F Y",
+    dateFormat: "Y-m-d",
+    minDate: "today",
+});
+// Adding the flatpickr Time Picker to the appointment time input
+flatpickr("#appointment-time", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i",
+    minTime: "08:00",
+    time_24hr: true
+});
+
+// Once the user submits their update, a success message will be display with a link to take them back to the dashboard
 const successMessage = async () => {
-    document.querySelector(".appointment-date").setAttribute("class", "appointment-date box is-block mx-3 is-hidden");
+    document.querySelector(".appointment-details").setAttribute("class", "appointment-details box is-block mx-3 is-hidden");
     let successMessageSection = document.querySelector(".success-message");
     successMessageSection.setAttribute("class", "success-message box is-block has-text-centered mx-3 notification is-success");
 }
@@ -10,11 +30,17 @@ document.querySelector(".dashboard").addEventListener("click", async (event) => 
     document.location.replace('/dashboard');
 })
 
+// Once the user submits their edit, a PUT request is sent
 const editAppointmentHandler = async (event) => {
     event.preventDefault();
 
+    const time = document.querySelector('#appointment-time').value.trim();
+    const hour = time.slice(0, 2);
+    const minute = time.slice(3, 5);
+    const appointmentTimeNew = `${hour}${minute}`;
+    
     const appointmentDate = document.querySelector('#appointment-date').value.trim();
-    const appointmentTime = document.querySelector('#appointment-time').value.trim();
+    const appointmentTime = appointmentTimeNew;
     const appointmentFor = document.querySelector('#appointment-for').value.trim();
     const appointmentWith = document.querySelector('#appointment-with').value.trim();
     const appointmentLocation = document.querySelector('#appointment-location').value.trim();
@@ -30,7 +56,7 @@ const editAppointmentHandler = async (event) => {
             body: JSON.stringify({ appointmentDate, appointmentTime, appointmentFor, appointmentWith, appointmentLocation, appointmentNotes }),
             headers: { 'Content-Type': 'application/json' },
         });
-        // Redirecting user to the dashboard if response is ok
+        // Invoke the successMessage function if the response is ok
         if (response.ok) {
             successMessage();
         } else {
@@ -39,43 +65,6 @@ const editAppointmentHandler = async (event) => {
             alert(response.statusText);
         }
     } 
-    // else {
-    //     const appointmentDateRequirement = document.querySelector('#appointment-date').placeholder = 'A date is required before submitting';
-    //     const appointmentTimeRequirement = document.querySelector('#appointment-time').placeholder = 'A time is required before submitting';
-    //     const appointmentForWhomRequirement = document.querySelector('#appointment-for').placeholder = 'Appointment For is required before submitting';
-    //     const appointmentWithWhomRequirement = document.querySelector('#appointment-with').placeholder = 'Appointment With is required before submitting';
-    //     const appointmentLocationRequirement = document.querySelector('#appointment-location').placeholder = 'Appointment Location is required before submitting';
-
-    //     if (!appointmentDate && !appointmentTime && !appointmentForWhom && !appointmentWithWhom && !appointmentLocation) {
-    //         appointmentDateRequirement;
-    //         appointmentTimeRequirement;
-    //         appointmentForWhomRequirement;
-    //         appointmentWithWhomRequirement;
-    //         appointmentLocationRequirement;
-    //     } else if (!appointmentDate && !appointmentTime && !appointmentForWhom && !appointmentWithWhom) {
-    //         appointmentDateRequirement;
-    //         appointmentTimeRequirement;
-    //         appointmentForWhomRequirement;
-    //         appointmentWithWhomRequirement;
-    //     } else if (!appointmentDate && !appointmentTime && !appointmentForWhom) {
-    //         appointmentDateRequirement;
-    //         appointmentTimeRequirement;
-    //         appointmentForWhomRequirement;
-    //     } else if (!appointmentDate && !appointmentTime) {
-    //         appointmentDateRequirement;
-    //         appointmentTimeRequirement;
-    //     } else if (!appointmentDate) {
-    //         appointmentDateRequirement
-    //     } else if (!appointmentTime) {
-    //         appointmentTimeRequirement
-    //     } else if (!appointmentForWhom) {
-    //         appointmentForWhomRequirement
-    //     } else if (!appointmentWithWhom) {
-    //         appointmentWithWhomRequirement
-    //     } else if (!appointmentLocation) {
-    //         appointmentLocationRequirement
-    //     }
-    // };
 };
 
 // When the user clicks the edit appointment button, the editAppointmentHandler will be called

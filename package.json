@@ -1,7 +1,7 @@
 {
-  "name": "easy-appointment-tracker-2.0",
+  "name": "repository-2",
   "version": "1.0.0",
-  "description": "",
+  "description": "Template",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,25 +11,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ShaneCurtis84/Easy-Appointment-Tracker-2.0.git"
+    "url": "git+https://github.com/TrushilBudhia/Repository-2.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ShaneCurtis84/Easy-Appointment-Tracker-2.0/issues"
+    "url": "https://github.com/TrushilBudhia/Repository-2/issues"
   },
-  "homepage": "https://github.com/ShaneCurtis84/Easy-Appointment-Tracker-2.0#readme",
+  "homepage": "https://github.com/TrushilBudhia/Repository-2#readme",
   "dependencies": {
     "bcrypt": "^4.0.1",
-    "bulma": "^0.9.2",
     "connect-session-sequelize": "^6.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
+    "flatpickr": "^4.6.9",
     "mysql2": "^2.0.1",
     "nodemon": "^2.0.7",
     "sequelize": "^5.21.2"
-  }
+  },
+  "devDependencies": {}
 }
