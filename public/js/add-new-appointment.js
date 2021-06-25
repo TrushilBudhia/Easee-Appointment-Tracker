@@ -6,6 +6,7 @@ flatpickr("#appointment-date", {
     altInput: true,
     altFormat: "j F Y",
     dateFormat: "Y-m-d",
+    defaultDate: "today",
     minDate: "today",
 });
 // Adding the flatpickr Time Picker to the appointment time input
@@ -13,36 +14,11 @@ flatpickr("#appointment-time", {
     enableTime: true,
     noCalendar: true,
     dateFormat: "H:i",
+    defaultHour:new Date().getHours(),
+    defaultMinute:new Date().getMinutes(),
     minTime: "08:00",
     time_24hr: true
 });
-
-// Once the user submits their update, a success message will be display with a link to take them back to the dashboard
-const successMessage = async () => {
-    document.querySelector(".appointment-details").setAttribute("class", "appointment-details box is-block mx-3 is-hidden");
-    let successMessageSection = document.querySelector(".success-message");
-    successMessageSection.setAttribute("class", "success-message box is-block has-text-centered mx-3 notification is-success");
-}
-
-// Directs user to particular page depending on the button they click
-document.querySelector(".new-appointment").addEventListener("click", async (event) => {
-    event.preventDefault();
-    document.location.replace('/appointment/new');
-})
-document.querySelector(".dashboard").addEventListener("click", async (event) => {
-    event.preventDefault();
-    document.location.replace('/dashboard');
-})
-
-// VARIABLES
-const appointmentDate = document.querySelector('#appointment-date');
-const appointmentForInput = document.getElementById("appointment-for");
-const appointmentWithInput = document.getElementById("appointment-with");
-const addressInput = document.getElementById("appointment-location");
-const appointmentNotes = document.getElementById("appointment-notes");
-const submitAppointmentEntryButton = document.querySelector("#submit-appointment-button");
-
-// Prevents duplication of elements - e.g. error message
 const numberOfElementsShown = async (elementSelect, numberOfElements) => {
     if (elementSelect.length > numberOfElements) {
         for (i = 0; i < elementSelect.length - numberOfElements; i++) {
@@ -50,17 +26,25 @@ const numberOfElementsShown = async (elementSelect, numberOfElements) => {
         }
     }
 }
-
-// Begins appointment entry process once the new appointment page loads
-const init = async () => {
-    appointmentForInput.value = "";
-    appointmentWithInput.value = "";
-    addressInput.value = "";
-    appointmentNotes.value = "";
-    submitAppointmentEntryButton.addEventListener("click", addAppointmentFormHandler);
+// Once the user submits their update, a success message will be display with a link to take them back to the dashboard
+const successMessage = async () => {
+    document.querySelector(".appointment-date").setAttribute("class", "appointment-date box is-block mx-3 is-hidden");
+    let successMessageSection = document.querySelector(".success-message");
+    successMessageSection.setAttribute("class", "success-message box is-block has-text-centered mx-3 notification is-success");
 }
 
-const addAppointmentFormHandler = async (event) => {
+// Directs user to dashboard page when button clicked
+document.querySelector(".dashboard").addEventListener("click", async (event) => {
+    event.preventDefault();
+    document.location.replace('/dashboard');
+})
+
+document.querySelector(".add-appointment").addEventListener("click", async (event) => {
+    event.preventDefault();
+    document.location.replace('/appointment/new');
+})
+// Once the user submits their add, a POST request is sent
+const addAppointmentHandler = async (event) => {
     event.preventDefault();
 
     const time = document.querySelector('#appointment-time').value.trim();
@@ -68,45 +52,51 @@ const addAppointmentFormHandler = async (event) => {
     const minute = time.slice(3, 5);
     const appointmentTimeNew = `${hour}${minute}`;
 
-    const appointmentDate = appointmentDate.value.trim();
+    const appointmentDate = document.querySelector('#appointment-date').value.trim();
     const appointmentTime = appointmentTimeNew;
-    const appointmentFor = appointmentForInput.value.trim();
-    const appointmentWith = appointmentWithInput.value.trim();
-    const appointmentLocation = addressInput.value.trim();
-    const appointmentNotes = appointmentNotes.value.trim();
-    // Posting the data to the api/appointments router when the submit button is successfully submitted
-    if (appointmentDate && appointmentTime && appointmentFor && appointmentWith && appointmentLocation) {
-        const response = await fetch('/api/appointments', {
+    const appointmentWhom = document.querySelector('#appointment-whom').value.trim();
+    const appointmentWith = document.querySelector('#appointment-with').value.trim();
+    const appointmentLocation = document.querySelector('#appointment-location').value.trim();
+    const appointmentNotes = document.querySelector('#appointment-notes').value.trim();
+
+    if (appointmentDate && appointmentTime && appointmentWhom && appointmentWith && appointmentLocation) {
+        const response = await fetch(`/api/appointments/`, {
             method: 'POST',
-            body: JSON.stringify({ appointmentDate, appointmentTime, appointmentFor, appointmentWith, appointmentLocation, appointmentNotes }),
+            body: JSON.stringify({ appointmentDate, appointmentTime, appointmentWhom, appointmentWith, appointmentLocation, appointmentNotes }),
             headers: { 'Content-Type': 'application/json' },
         });
-        // Invoke the successMessage function if the response is ok
+        //Redirecting user to the dashboard if response is ok
         if (response.ok) {
             successMessage();
         } else {
             const error = `<p>*Failed to create appointment</p>`;
             document.querySelector('.error-message').innerHTML = error;
-            alert(response.statusText);
         }
     } else {
         const errorMessage = document.querySelector(".error");
         numberOfElementsShown(errorMessage, 0);
         let errorMessageListItem;
+        if (!appointmentDate) {
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>The Date of the Appointment</li>` : errorMessageListItem = `<li>The Date of the Appointment</li>`;
+        }
+        if (!appointmentTime) {
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>The Appointment Time</li>` : errorMessageListItem = `<li>The Appointment Time</li>`;
+        }
         if (!appointmentFor) {
-            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>• Appointment For</li>`: errorMessageListItem = `<li>• Appointment For Whom</li>`;
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>Appointment For</li>` : errorMessageListItem = `<li>Appointment For</li>`;
         }
         if (!appointmentWith) {
-            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>• Appointment With</li>` : errorMessageListItem = `<li>• Appointment With</li>`;
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>Appointment With</li>` : errorMessageListItem = `<li>Appointment With</li>`;
         }
         if (!appointmentLocation) {
-            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>• Appointment Location</li>`: errorMessageListItem = `<li>• Appointment Location</li>`;
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>Appointment Location</li>` : errorMessageListItem = `<li>Appointment Location</li>`;
         }
 
         const errorMessageSection = document.querySelector('.error-message');
         errorMessageSection.setAttribute('class', 'error-message notification is-danger my-4 is-block');
         errorMessage.innerHTML = errorMessageListItem;
     }
-}
+};
 
-init();
+// When the user clicks the add appointment button, the addAppointmentHandler will be called
+document.querySelector('#add-appointment-button').addEventListener('click', addAppointmentHandler);

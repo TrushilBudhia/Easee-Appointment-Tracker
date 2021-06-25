@@ -19,7 +19,7 @@ flatpickr("#appointment-time", {
 
 // Once the user submits their update, a success message will be display with a link to take them back to the dashboard
 const successMessage = async () => {
-    document.querySelector(".appointment-details").setAttribute("class", "appointment-details box is-block mx-3 is-hidden");
+    document.querySelector(".appointment-date").setAttribute("class", "appointment-date box is-block mx-3 is-hidden");
     let successMessageSection = document.querySelector(".success-message");
     successMessageSection.setAttribute("class", "success-message box is-block has-text-centered mx-3 notification is-success");
 }
@@ -29,6 +29,15 @@ document.querySelector(".dashboard").addEventListener("click", async (event) => 
     event.preventDefault();
     document.location.replace('/dashboard');
 })
+
+// Prevents duplication of elements - e.g. error message
+const numberOfElementsShown = async (elementSelect, numberOfElements) => {
+    if (elementSelect.length > numberOfElements) {
+        for (i = 0; i < elementSelect.length - numberOfElements; i++) {
+            elementSelect[i].remove();
+        }
+    }
+}
 
 // Once the user submits their edit, a PUT request is sent
 const editAppointmentHandler = async (event) => {
@@ -64,7 +73,30 @@ const editAppointmentHandler = async (event) => {
             document.querySelector('.error-message').innerHTML = error;
             alert(response.statusText);
         }
-    } 
+    } else {
+        const errorMessage = document.querySelector(".error");
+        numberOfElementsShown(errorMessage, 0);
+        let errorMessageListItem;
+        if (!appointmentDate) {
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>The Date of the Appointment</li>` : errorMessageListItem = `<li>The Date of the Appointment</li>`;
+        }
+        if (!appointmentTime) {
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>The Appointment Time</li>` : errorMessageListItem = `<li>The Appointment Time</li>`;
+        }
+        if (!appointmentFor) {
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>Appointment For</li>` : errorMessageListItem = `<li>Appointment For</li>`;
+        }
+        if (!appointmentWith) {
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>Appointment With</li>` : errorMessageListItem = `<li>Appointment With</li>`;
+        }
+        if (!appointmentLocation) {
+            errorMessageListItem ? errorMessageListItem = errorMessageListItem + `<li>Appointment Location</li>` : errorMessageListItem = `<li>Appointment Location</li>`;
+        }
+
+        const errorMessageSection = document.querySelector('.error-message');
+        errorMessageSection.setAttribute('class', 'error-message notification is-danger my-4 is-block');
+        errorMessage.innerHTML = errorMessageListItem;
+    }
 };
 
 // When the user clicks the edit appointment button, the editAppointmentHandler will be called
