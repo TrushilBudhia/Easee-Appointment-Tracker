@@ -1,8 +1,3 @@
-{{!-- <section class = "card">
-Appointment date is {{format_date appnt_date}} and time is {{appnt_time}}
-Appointment is for {{appnt_for_whom}} and with {{appnt_with_whom}}
-</section> --}}
-
 <article class="column is-one-quarter card-columns-nested">
     <div class="card-main">
         <div class="card-header">
@@ -21,7 +16,9 @@ Appointment is for {{appnt_for_whom}} and with {{appnt_with_whom}}
             <a class="card-footer-item edit-btn" href="/appointment/edit/{{id}}">
                 <div>Edit</div>
             </a>
-            <button class="card-footer-item delete-btn" data-appointment-index="0">Delete</button>
+            <a class="card-footer-item delete-btn" href="/api/appointments/delete/{{id}}">
+                <div>Delete</div>
+            </a>
         </footer>
     </div>
 </article>
