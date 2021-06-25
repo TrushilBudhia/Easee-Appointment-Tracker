@@ -5,6 +5,7 @@ const withAuth = require('../utils/auth');
 // Get the add new appointment page
 router.get('/new', withAuth, async (request, response) => {
   try {
+    // Find all Appointment information in the database with the sepcified information
     const dbAppointmentSearchData = await Appointment.findAll({
       where: {
         user_id: request.session.user_id,
@@ -27,6 +28,7 @@ router.get('/new', withAuth, async (request, response) => {
     const appointmentsLocationUnique = [... new Set(appointments.map((appointmentData) =>
       appointmentData.appnt_location
     ))];
+
     response.render('add-new-appointment', {
       appointmentsForWhomUnique,
       appointmentsWithWhomUnique,
@@ -39,10 +41,10 @@ router.get('/new', withAuth, async (request, response) => {
   }
 });
 
-
 // Get the edit appointment page
 router.get('/edit/:id', withAuth, async (request, response) => {
   try {
+    // Finding appointment by primary key with the specified information
     const dbAppointmentData = await Appointment.findByPk(request.params.id, {
       where: {
         id: request.params.id,
@@ -71,10 +73,15 @@ router.get('/edit/:id', withAuth, async (request, response) => {
 });
 
 router.get('/daily-itinerary', withAuth, async (request, response) => {
+  console.log('Appointment Routes - daily-itinerary ', request.query);
   try {
+    todaysDate = new Date();
+    const today = todaysDate.getFullYear() + '-' + ('0' + (todaysDate.getMonth() + 1)).slice(-2) + '-' + ('0' + todaysDate.getDate()).slice(-2);
+
     const dbAppointmentData = await Appointment.findAll({
       where: {
         user_id: request.session.user_id,
+        appnt_date: today,
       },
     });
 
@@ -111,11 +118,86 @@ router.get('/view-all-appointments', withAuth, async (request, response) => {
     const appointments = dbAppointmentDataCurrent.map((appointmentData) =>
       appointmentData.get({ plain: true })
     );
-    
+
     response.render('appointment', {
       appointments,
       loggedIn: request.session.loggedIn,
     });
+  } catch (error) {
+    response.status(500).json(error);
+  }
+});
+
+router.get('/search-appointments', withAuth, async (request, response) => {
+  console.log('Appointment Routes - search appointment', request.session.user_id);
+  try {
+
+    const dbAppointmentSearchData = await Appointment.findAll({
+      where: {
+        user_id: request.session.user_id,
+      },
+      attributes: ['appnt_for_whom', 'appnt_with_whom']
+    });
+
+    const appointments = dbAppointmentSearchData.map((appointmentData) =>
+      appointmentData.get({ plain: true })
+    );
+
+    const appointmentsForWhomUnique = [... new Set(appointments.map((appointmentData) =>
+      appointmentData.appnt_for_whom
+    ))];
+
+    const appointmentsWithWhomUnique = [... new Set(appointments.map((appointmentData) =>
+      appointmentData.appnt_with_whom
+    ))];
+
+    appointmentsForWhomUnique.sort();
+
+    appointmentsWithWhomUnique.sort();
+
+    response.render('search-appointments', {
+      appointmentsForWhomUnique,
+      appointmentsWithWhomUnique,
+      loggedIn: request.session.loggedIn,
+    });
+
+  } catch (error) {
+    response.status(500).json(error);
+  }
+});
+
+router.get('/view-appointments', withAuth, async (request, response) => {
+  console.log('Appointment Routes - view appointment ', request.query);
+  try {
+    const dbAppointmentData = await Appointment.findAll({
+      where: {
+        user_id: request.session.user_id,
+      },
+    });
+
+    const searchDateFrom = request.query.searchDateFrom;
+    const searchDateTo = request.query.searchDateTo;
+    const searchAppointmentForWhom = request.query.searchAppointmentForWhom;
+    const searchAppointmentWithWhom = request.query.searchAppointmentWithWhom;
+
+    let appointmentsFiltered = dbAppointmentData;
+    if (searchDateFrom !== '') {
+      appointmentsFiltered = dbAppointmentData.filter(appntDate => appntDate.appnt_date >= searchDateFrom && appntDate.appnt_date <= searchDateTo);
+    }
+
+    if (searchAppointmentForWhom != '') {
+      appointmentsFiltered = appointmentsFiltered.filter(appnt => appnt.appnt_for_whom === searchAppointmentForWhom);
+    }
+
+    if (searchAppointmentWithWhom != '') {
+      appointmentsFiltered = appointmentsFiltered.filter(appnt => appnt.appnt_with_whom === searchAppointmentWithWhom);
+    }
+
+    const appointments = appointmentsFiltered.sort((firstAppnt, secondAppnt) => new Date(firstAppnt.appnt_date) - new Date(secondAppnt.appnt_date)).map((appointmentData) =>
+      appointmentData.get({ plain: true }));
+
+    response.render('appointment', { appointments, loggedIn: request.session.loggedIn, });
+
   } catch (error) {
     response.status(500).json(error);
   }

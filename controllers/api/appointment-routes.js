@@ -27,6 +27,25 @@ router.get('/', async (request, response) => {
     }
 });
 
+// Delete appointment
+router.get('/delete/:id', async (request, response) => {
+    try {
+        const dbAppointmentData = await Appointment.destroy({
+            where: {
+                id: request.params.id,
+            },
+        });
+
+        if (!dbAppointmentData) {
+            response.status(404).json({ message: 'No Blog data for id ' + request.params.id + ' was found, so it was not deleted' });
+            return;
+        }
+        response.redirect(request.headers.referer);
+    } catch (error) {
+        response.status(500).json(error);
+    }
+});
+
 // Create new appointment
 router.post('/', async (request, response) => {
     try {
@@ -58,11 +77,11 @@ router.put('/:id', withAuth, async (request, response) => {
             appnt_location: request.body.appointmentLocation,
             appnt_note: request.body.appointmentNotes,
         },
-        {
-            where: {
-                id: request.params.id,
-            },
-        });
+            {
+                where: {
+                    id: request.params.id,
+                },
+            });
         // If no appointment, a 404 error status is returned along with a message
         if (!dbAppointmentData) {
             response.status(404).json({ message: 'No appointment found with that id!' });
