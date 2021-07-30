@@ -2,6 +2,25 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
 
+[![Langugage: Node.js](https://img.shields.io/badge/Language-Nodejs-blue.svg)](https://nodejs.org/en/docs/)
+[![Langugage: Express](https://img.shields.io/badge/Language-Express-orange.svg)](https://expressjs.com/)
+[![Langugage: MySQL](https://img.shields.io/badge/Language-MySQL-blueviolet.svg)](https://www.npmjs.com/package/mysql2)
+[![Langugage: Sequelize](https://img.shields.io/badge/Language-Sequelize-green.svg)](https://sequelize.org/v5/index.html)
+[![Language: Express Handlebars](https://img.shields.io/badge/Language-ExpressHandlebars-ff69b4.svg)](https://sequelize.org/v5/index.html)
+[![Langugage: JavaScript](https://img.shields.io/badge/Language-JavaScript-brightgreen.svg)](https://www.javascript.com/)
+[![Langugage: HTML5](https://img.shields.io/badge/Language-HTML5-yellow.svg)](https://developer.mozilla.org/en-US/docs/Glossary/HTML5)
+[![Langugage: CSS3](https://img.shields.io/badge/Language-CSS3-informational.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+
+[![Module: flatpickr](https://img.shields.io/badge/Module-flatpickr-critical.svg)](https://www.npmjs.com/package/flatpickr)
+[![Module: bcrypt](https://img.shields.io/badge/Module-bcrypt-critical.svg)](https://www.npmjs.com/package/bcrypt)
+[![Module: Connect Session Sequelize](https://img.shields.io/badge/Module-ConnectSessionSequelize-critical.svg)](https://www.npmjs.com/package/connect-session-sequelize)
+[![Module: dotenv](https://img.shields.io/badge/Module-dotenv-critical.svg)](https://www.npmjs.com/package/dotenv)
+
+[![CSS Framework: Bulma](https://img.shields.io/badge/CSS-Bulma-green.svg)](https://bulma.io/)
+[![Icons: FortAwesome](https://img.shields.io/badge/Icons-FortAwesome-9cf.svg)](https://fortawesome.com/)
+[![API: Google Places API](https://img.shields.io/badge/API-GooglePlacesAPI-blue.svg)](https://developers.google.com/maps/documentation/places/web-service/overview)
+[![API: Google Maps JavasScript API](https://img.shields.io/badge/API-GoogleMapsJavaScriptAPI-blue.svg)](https://developers.google.com/maps/documentation/javascript/overview)
+
 ## Description
 
 An easy to use appointment tracking system for people looking for a quick and secure way to record and track appointments for themselves and/or for others they are caring for.
@@ -51,7 +70,7 @@ The following images shows the functionality of the application:
 - [Sequelize](https://sequelize.org/v5/index.html)
 - [bcrypt](https://www.npmjs.com/package/bcrypt)
 - [Connect Session Sequelize](https://www.npmjs.com/package/connect-session-sequelize)
-- [Express Handlebars](https://www.npmjs.com/package/express-handlebars)
+- [Express Handlebars](https://sequelize.org/v5/index.html)
 - [flatpickr](https://www.npmjs.com/package/flatpickr)
 - [Heroku](https://www.heroku.com/)
 - [Bulma CSS Framework](https://bulma.io/)
@@ -74,9 +93,9 @@ Feel free to check the [issues page](https://github.com/TrushilBudhia/Easee-Appo
 There are no tests currently for this application.
 
 ## Collaborators
-[Shane Curtis](https://github.com/ShaneCurtis84)
-[Susanne Bilney](https://github.com/Susanne85)
-[Trushil Budhia](https://github.com/TrushilBudhia)
+* [Shane Curtis](https://github.com/ShaneCurtis84)
+* [Susanne Bilney](https://github.com/Susanne85)
+* [Trushil Budhia](https://github.com/TrushilBudhia)
 
 ## Questions
 For any questions, please contact the author:
