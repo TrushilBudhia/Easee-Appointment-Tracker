@@ -53,7 +53,7 @@ npm start
 ```
 
 ## Assets
-Live demo of the application hosted on Heroku: [Easee Appointment Tracker](https://afternoon-beyond-55572.herokuapp.com/)
+Live demo of the application hosted on Heroku: [Easee Appointment Tracker](https://easee-appointment-tracker.herokuapp.com/)
 
 The following images shows the functionality of the application: 
 
