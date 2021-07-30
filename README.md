@@ -54,6 +54,10 @@ The following images shows the functionality of the application:
 - [Express Handlebars](https://www.npmjs.com/package/express-handlebars)
 - [flatpickr](https://www.npmjs.com/package/flatpickr)
 - [Heroku](https://www.heroku.com/)
+- [Bulma CSS Framework](https://bulma.io/)
+- [Font Awesome (icons)](https://fontawesome.com/)
+- [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview)
+- [Google Maps JavasScript API](https://developers.google.com/maps/documentation/javascript/overview)
 - JavaScript
 
 ## License
