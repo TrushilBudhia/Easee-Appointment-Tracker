@@ -1,7 +1,7 @@
 {
-  "name": "repository-2",
+  "name": "easee-appointment-tracker",
   "version": "1.0.0",
-  "description": "Template",
+  "description": "An easy to use appointment tracking system for people looking for a quick and secure way to record and track appointments for themselves and/or for others they are caring for.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TrushilBudhia/Repository-2.git"
+    "url": "git+https://github.com/TrushilBudhia/Easee-Appointment-Tracker.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TrushilBudhia/Repository-2/issues"
+    "url": "https://github.com/TrushilBudhia/Easee-Appointment-Tracker/issues"
   },
-  "homepage": "https://github.com/TrushilBudhia/Repository-2#readme",
+  "homepage": "https://github.com/TrushilBudhia/Easee-Appointment-Tracker/issues#readme",
   "dependencies": {
     "bcrypt": "^4.0.1",
     "compression": "^1.7.4",

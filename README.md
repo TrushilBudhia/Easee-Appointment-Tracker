@@ -20,7 +20,7 @@ An easy to use appointment tracking system for people looking for a quick and se
 ## Installation
 1. To install this application clone it through GitHub using the following code in the terminal: 
     ``` 
-    git clone https://github.com/TrushilBudhia/Repository-2.git
+    git clone https://github.com/TrushilBudhia/Easee-Appointment-Tracker.git
     ```
 2. To add the dependencies to the application, navigate to the root directory for the application and run:
     ```js
@@ -68,7 +68,7 @@ This project is [MIT](./LICENSE) licensed
 ## Contributing
 Contributions, issues and feature requests are welcome.
 
-Feel free to check the [issues page](https://github.com/TrushilBudhia/Repository-2/issues) if you want to contribute.
+Feel free to check the [issues page](https://github.com/TrushilBudhia/Easee-Appointment-Tracker/issues) if you want to contribute.
 
 ## Tests
 There are no tests currently for this application.
